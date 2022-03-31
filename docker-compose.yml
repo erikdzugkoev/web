@@ -8,7 +8,7 @@ services:
       ports:
        - '6603:3306'
       environment:
-        MYSQL_ROOT_PASSWORD: helloworld
+        MYSQL_ROOT_PASSWORD: 1352
 
    apl:
       depends_on:

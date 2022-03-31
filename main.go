@@ -29,7 +29,7 @@ type SymbolInfo struct {
 }
 
 func home(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte(str))
+	w.Write([]byte(str)) //выводим результат
 }
 
 // Принимаем данные прайса
@@ -58,7 +58,7 @@ func SaveToBd(si []SymbolInfo) error {
 	go func() {
 		for {
 			fmt.Println("подключение к SQL")
-			db, err := sql.Open("mysql", "root:helloworld@tcp(appsDB)/golang")
+			db, err := sql.Open("mysql", "root:1352@tcp(appsDB)/golang")
 			if err != nil {
 				panic(err)
 			}
@@ -84,7 +84,7 @@ func SaveToBd(si []SymbolInfo) error {
 
 //Получаем данные из Mysql
 func RequestMysql() error {
-	db, err := sql.Open("mysql", "root:helloworld@tcp(appsDB)/golang")
+	db, err := sql.Open("mysql", "root:1352@tcp(appsDB)/golang")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -92,7 +92,7 @@ func RequestMysql() error {
 	defer db.Close()
 	fmt.Println("подключение к SQL")
 
-	//Берем данные из базы данных все данные
+	//Берем данные из базы данных (все)
 	res, err := db.Query("SELECT * FROM tickers")
 	if err != nil {
 		log.Fatal(err)
@@ -110,15 +110,9 @@ func RequestMysql() error {
 		if err != nil {
 			log.Fatal(err)
 		}
-		str = string(b)
+		str = string(b) //возвращаем результат в глоб. перемен.
 	}
-	//чистим базу
-	// del, err := db.Query("DELETE FROM `tickers`")
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// defer db.Close()
-	// fmt.Println(del)
+
 	return nil
 }
 
